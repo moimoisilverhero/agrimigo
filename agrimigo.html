@@ -1,0 +1,2766 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>AgriMigo – Experience Agriculture in Queensland</title>
+        <link
+            href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,700;9..40,900&display=swap"
+            rel="stylesheet"
+        />
+        <style>
+            :root {
+                --green: #1a7c4a;
+                --green-dark: #0f5c35;
+                --green-mid: #2d9c60;
+                --green-pale: #e8f5ee;
+                --black: #1a1a1a;
+                --g7: #4a4a4a;
+                --g4: #9a9a9a;
+                --g2: #e8e8e8;
+                --g1: #f5f5f5;
+                --white: #ffffff;
+                --yellow: #ffc107;
+            }
+            *,
+            *::before,
+            *::after {
+                box-sizing: border-box;
+                margin: 0;
+                padding: 0;
+            }
+            html {
+                scroll-behavior: smooth;
+            }
+            body {
+                font-family: "DM Sans", "Helvetica Neue", sans-serif;
+                background: var(--white);
+                color: var(--black);
+            }
+            ::-webkit-scrollbar {
+                display: none;
+            }
+            a {
+                text-decoration: none;
+                color: inherit;
+            }
+            button {
+                cursor: pointer;
+                font-family: inherit;
+            }
+            input {
+                font-family: inherit;
+            }
+            img {
+                display: block;
+            }
+
+            /* ── NAV ── */
+            .nav {
+                position: sticky;
+                top: 0;
+                z-index: 200;
+                background: var(--white);
+                border-bottom: 1px solid var(--g2);
+            }
+            .nav-main {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 12px 32px;
+                display: flex;
+                align-items: center;
+                gap: 16px;
+            }
+            .logo {
+                display: flex;
+                align-items: center;
+                gap: 0;
+                cursor: pointer;
+                flex-shrink: 0;
+                text-decoration: none;
+            }
+            .logo svg {
+                height: 36px;
+                width: auto;
+            }
+            .search-bar {
+                flex: 1;
+                max-width: 660px;
+                margin: 0 auto;
+                display: flex;
+                align-items: center;
+                border: 2px solid var(--black);
+                border-radius: 999px;
+                padding: 7px 7px 7px 16px;
+                gap: 8px;
+            }
+            .search-bar input {
+                flex: 1;
+                border: none;
+                outline: none;
+                font-size: 14px;
+                font-weight: 500;
+                background: transparent;
+                color: var(--black);
+            }
+            .search-bar input::placeholder {
+                color: var(--g4);
+            }
+            .btn-search {
+                background: var(--green);
+                color: var(--white);
+                border: none;
+                border-radius: 999px;
+                padding: 8px 20px;
+                font-size: 14px;
+                font-weight: 700;
+                transition: background 0.18s;
+                white-space: nowrap;
+            }
+            .btn-search:hover {
+                background: var(--green-dark);
+            }
+            .nav-icons {
+                display: flex;
+                align-items: center;
+                gap: 18px;
+                flex-shrink: 0;
+            }
+            .nav-icon-btn {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 2px;
+                background: none;
+                border: none;
+                color: var(--g7);
+                font-size: 11px;
+                padding: 0;
+            }
+            .nav-icon-btn .ico {
+                font-size: 20px;
+            }
+            .btn-lang {
+                border: 1px solid var(--g2);
+                border-radius: 8px;
+                padding: 6px 10px;
+                font-size: 12px;
+                font-weight: 500;
+                background: none;
+                color: var(--g7);
+            }
+            .cat-wrap {
+                border-top: 1px solid var(--g2);
+            }
+            .cat-strip {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 8px 32px;
+                display: flex;
+                gap: 8px;
+                overflow-x: auto;
+            }
+            .cat-pill {
+                flex-shrink: 0;
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                padding: 6px 16px;
+                border-radius: 999px;
+                border: none;
+                font-size: 13px;
+                font-weight: 600;
+                background: var(--g1);
+                color: var(--g7);
+                transition: all 0.15s;
+            }
+            .cat-pill.active {
+                background: var(--black);
+                color: var(--white);
+            }
+            .cat-pill:hover:not(.active) {
+                background: var(--g2);
+            }
+
+            /* ── BUTTONS ── */
+            .btn {
+                display: inline-block;
+                border: none;
+                border-radius: 12px;
+                font-weight: 700;
+                cursor: pointer;
+                font-family: "DM Sans", sans-serif;
+                transition: background 0.18s;
+                text-align: center;
+            }
+            .btn-g {
+                background: var(--green);
+                color: var(--white);
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+            .btn-g:hover {
+                background: var(--green-dark);
+            }
+            .btn-g.sm {
+                padding: 8px 16px;
+                font-size: 13px;
+            }
+            .btn-g.full {
+                width: 100%;
+            }
+            .btn-k {
+                background: var(--black);
+                color: var(--white);
+                padding: 12px 24px;
+                font-size: 15px;
+            }
+            .btn-k:hover {
+                background: #333;
+            }
+
+            /* ── HERO ── */
+            .hero {
+                position: relative;
+                height: 560px;
+                overflow: hidden;
+            }
+            .hero-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                object-position: center 40%;
+            }
+            .hero-ov {
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(
+                    to right,
+                    rgba(0, 0, 0, 0.72) 0%,
+                    rgba(0, 0, 0, 0.28) 60%,
+                    transparent 100%
+                );
+            }
+            .hero-body {
+                position: absolute;
+                inset: 0;
+                display: flex;
+                align-items: center;
+            }
+            .hero-inner {
+                max-width: 1280px;
+                width: 100%;
+                margin: 0 auto;
+                padding: 0 40px;
+            }
+            .hero-content {
+                max-width: 530px;
+            }
+            .hero-eye {
+                font-size: 11px;
+                font-weight: 700;
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                color: rgba(255, 255, 255, 0.72);
+                margin-bottom: 12px;
+            }
+            .hero-title {
+                font-size: clamp(2.1rem, 4.4vw, 3.3rem);
+                font-weight: 900;
+                line-height: 1.04;
+                letter-spacing: -0.03em;
+                color: var(--white);
+                margin-bottom: 14px;
+            }
+            .hero-title .acc {
+                color: #74dfa2;
+            }
+            .hero-sub {
+                font-size: 15px;
+                color: rgba(255, 255, 255, 0.88);
+                margin-bottom: 28px;
+                line-height: 1.65;
+                max-width: 430px;
+            }
+            .hero-search {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                background: var(--white);
+                border-radius: 16px;
+                padding: 10px;
+                box-shadow: 0 20px 60px rgba(0, 0, 0, 0.28);
+                max-width: 500px;
+            }
+            .hero-search input {
+                flex: 1;
+                min-width: 130px;
+                border: 1px solid var(--g2);
+                border-radius: 10px;
+                padding: 10px 14px;
+                font-size: 13px;
+                outline: none;
+                color: var(--black);
+            }
+            .hero-search input::placeholder {
+                color: var(--g4);
+            }
+            .hero-stats {
+                position: absolute;
+                bottom: 28px;
+                right: 44px;
+                display: flex;
+                gap: 36px;
+            }
+            .hs-n {
+                font-size: 24px;
+                font-weight: 900;
+                color: var(--white);
+                line-height: 1;
+            }
+            .hs-l {
+                font-size: 11px;
+                color: rgba(255, 255, 255, 0.62);
+                margin-top: 2px;
+            }
+
+            /* ── SCHOOL BANNER ── */
+            .school-banner {
+                background: linear-gradient(90deg, #e8f5ee, #f0faf4);
+                border-bottom: 1px solid #c8e6d4;
+            }
+            .school-banner-inner {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 18px 32px;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 16px;
+                flex-wrap: wrap;
+            }
+            .sb-left {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+            }
+            .sb-icon {
+                width: 50px;
+                height: 50px;
+                border-radius: 14px;
+                background: var(--green);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 24px;
+                flex-shrink: 0;
+            }
+            .sb-title {
+                font-size: 17px;
+                font-weight: 900;
+                color: var(--black);
+            }
+            .sb-sub {
+                font-size: 12px;
+                color: var(--g7);
+                margin-top: 3px;
+            }
+
+            /* ── SECTION ── */
+            .section {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 52px 32px;
+            }
+            .section.bg-pale {
+                background: var(--green-pale);
+            }
+            .bg-pale-wrap {
+                background: var(--green-pale);
+                border-top: 1px solid #c8e6d4;
+                border-bottom: 1px solid #c8e6d4;
+            }
+            .bg-grey-wrap {
+                background: var(--g1);
+                border-top: 1px solid var(--g2);
+                border-bottom: 1px solid var(--g2);
+            }
+            .bg-black-wrap {
+                background: var(--black);
+            }
+            .sec-head {
+                display: flex;
+                align-items: flex-end;
+                justify-content: space-between;
+                margin-bottom: 24px;
+            }
+            .sec-h2 {
+                font-size: 24px;
+                font-weight: 900;
+                letter-spacing: -0.02em;
+                color: var(--black);
+            }
+            .sec-sub {
+                font-size: 13px;
+                color: var(--g4);
+                margin-top: 4px;
+            }
+            .sec-link {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--green);
+                background: none;
+                border: none;
+                text-decoration: underline;
+                white-space: nowrap;
+            }
+            .chip {
+                display: inline-block;
+                padding: 4px 12px;
+                border-radius: 999px;
+                font-size: 11px;
+                font-weight: 700;
+                margin-bottom: 8px;
+            }
+            .chip-g {
+                background: var(--green-pale);
+                color: var(--green);
+            }
+            .chip-p {
+                background: #ede9fe;
+                color: #6a1b9a;
+            }
+            .chip-a {
+                background: rgba(110, 231, 166, 0.15);
+                color: #74dfa2;
+            }
+
+            /* ── CAROUSEL ── */
+            .carousel-wrap {
+                position: relative;
+            }
+            .carousel {
+                display: flex;
+                gap: 20px;
+                overflow-x: auto;
+                padding-bottom: 8px;
+                scroll-behavior: smooth;
+            }
+            .car-btn {
+                position: absolute;
+                top: calc(50% - 20px);
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background: var(--white);
+                border: 1px solid var(--g2);
+                font-size: 22px;
+                font-weight: 700;
+                color: var(--black);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+                transition: box-shadow 0.15s;
+                z-index: 10;
+            }
+            .car-btn:hover {
+                box-shadow: 0 6px 24px rgba(0, 0, 0, 0.2);
+            }
+            .car-prev {
+                left: 0;
+                transform: translateX(-50%);
+            }
+            .car-next {
+                right: 0;
+                transform: translateX(50%);
+            }
+
+            /* ── EXP CARD ── */
+            .card {
+                flex-shrink: 0;
+                width: 272px;
+                border-radius: 16px;
+                overflow: hidden;
+                background: var(--white);
+                border: 1px solid var(--g2);
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+                transition:
+                    transform 0.22s ease,
+                    box-shadow 0.22s ease;
+                cursor: pointer;
+            }
+            .card:hover {
+                transform: translateY(-4px);
+                box-shadow: 0 12px 36px rgba(0, 0, 0, 0.13);
+            }
+            .card:hover .card-img {
+                transform: scale(1.05);
+            }
+            .card-img-wrap {
+                position: relative;
+                height: 200px;
+                overflow: hidden;
+            }
+            .card-img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                transition: transform 0.4s ease;
+            }
+            .card-badge {
+                position: absolute;
+                top: 10px;
+                left: 10px;
+                padding: 4px 10px;
+                border-radius: 999px;
+                font-size: 11px;
+                font-weight: 700;
+                color: var(--white);
+            }
+            .card-heart {
+                position: absolute;
+                top: 10px;
+                right: 10px;
+                width: 32px;
+                height: 32px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.92);
+                border: none;
+                font-size: 15px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 1px 4px rgba(0, 0, 0, 0.18);
+                transition: color 0.15s;
+                color: var(--g4);
+            }
+            .card-heart:hover,
+            .card-heart.liked {
+                color: #e53935;
+            }
+            .card-dur {
+                position: absolute;
+                bottom: 10px;
+                left: 10px;
+                padding: 3px 8px;
+                border-radius: 6px;
+                font-size: 11px;
+                font-weight: 600;
+                color: var(--white);
+                background: rgba(0, 0, 0, 0.52);
+            }
+            .card-body {
+                padding: 14px;
+            }
+            .card-loc {
+                font-size: 11px;
+                color: var(--g4);
+                font-weight: 500;
+                margin-bottom: 5px;
+            }
+            .card-title {
+                font-size: 14px;
+                font-weight: 700;
+                line-height: 1.35;
+                color: var(--black);
+                margin-bottom: 8px;
+            }
+            .card-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 4px;
+                margin-bottom: 10px;
+            }
+            .tag {
+                display: inline-block;
+                padding: 2px 8px;
+                border-radius: 4px;
+                font-size: 11px;
+                font-weight: 600;
+            }
+            .t-school {
+                background: #e8f5ee;
+                color: #1a7c4a;
+            }
+            .t-hands {
+                background: #fff3e0;
+                color: #e65100;
+            }
+            .t-begin {
+                background: #e3f2fd;
+                color: #1565c0;
+            }
+            .t-agtech {
+                background: #f3e5f5;
+                color: #6a1b9a;
+            }
+            .t-adv {
+                background: #fbe9e7;
+                color: #bf360c;
+            }
+            .t-food {
+                background: #fce4ec;
+                color: #880e4f;
+            }
+            .t-season {
+                background: #fffde7;
+                color: #f57f17;
+            }
+            .card-stars {
+                display: flex;
+                align-items: center;
+                gap: 5px;
+                margin-bottom: 10px;
+            }
+            .stars-ico {
+                color: var(--yellow);
+                font-size: 13px;
+                letter-spacing: 1px;
+            }
+            .star-n {
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--black);
+            }
+            .star-c {
+                font-size: 11px;
+                color: var(--g4);
+            }
+            .card-foot {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                padding-top: 10px;
+                border-top: 1px solid var(--g2);
+            }
+            .price-from {
+                font-size: 11px;
+                color: var(--g4);
+            }
+            .price-val {
+                font-size: 18px;
+                font-weight: 900;
+                color: var(--black);
+                line-height: 1.1;
+            }
+            .price-val span {
+                font-size: 11px;
+                font-weight: 400;
+                color: var(--g4);
+            }
+
+            /* ── CATEGORY GRID ── */
+            .cat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+                gap: 14px;
+            }
+            .cat-card {
+                border-radius: 16px;
+                padding: 20px 14px;
+                text-align: center;
+                background: var(--white);
+                border: 1px solid var(--g2);
+                cursor: pointer;
+                transition: all 0.18s;
+            }
+            .cat-card:hover {
+                border-color: var(--green);
+                transform: translateY(-3px);
+                box-shadow: 0 6px 20px rgba(26, 124, 74, 0.12);
+            }
+            .cat-card-img {
+                width: 100%;
+                height: 100px;
+                object-fit: cover;
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+            .cat-card-ico {
+                font-size: 34px;
+                margin-bottom: 8px;
+            }
+            .cat-card p {
+                font-size: 12px;
+                font-weight: 700;
+                color: var(--black);
+            }
+
+            /* ── SCHOOL FEATURES ── */
+            .feat-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+                gap: 18px;
+            }
+            .feat-card {
+                border-radius: 18px;
+                padding: 24px;
+                background: var(--white);
+                border: 1px solid #c8e6d4;
+            }
+            .feat-ico {
+                font-size: 32px;
+                margin-bottom: 12px;
+            }
+            .feat-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: var(--black);
+                margin-bottom: 6px;
+            }
+            .feat-desc {
+                font-size: 13px;
+                color: var(--g7);
+                line-height: 1.6;
+            }
+
+            /* ── MISSION SECTION (dark) ── */
+            .mission-grid {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 64px 32px;
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 56px;
+                align-items: center;
+            }
+            .mission-left h2 {
+                font-size: clamp(1.7rem, 3vw, 2.4rem);
+                font-weight: 900;
+                line-height: 1.1;
+                letter-spacing: -0.02em;
+                color: var(--white);
+                margin-bottom: 14px;
+            }
+            .mission-left p {
+                font-size: 14px;
+                color: #aaaaaa;
+                line-height: 1.75;
+                margin-bottom: 24px;
+            }
+            .mission-cards {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 14px;
+            }
+            .mission-card {
+                border-radius: 16px;
+                padding: 18px;
+                background: rgba(255, 255, 255, 0.06);
+                border: 1px solid rgba(255, 255, 255, 0.1);
+            }
+            .mission-card .m-ico {
+                font-size: 30px;
+                margin-bottom: 8px;
+            }
+            .mission-card h3 {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--white);
+                margin-bottom: 5px;
+            }
+            .mission-card p {
+                font-size: 12px;
+                color: #aaaaaa;
+                line-height: 1.6;
+            }
+
+            /* ── PHOTO MOSAIC STRIP ── */
+            .mosaic {
+                display: grid;
+                grid-template-columns: 2fr 1fr 1fr;
+                grid-template-rows: 220px 220px;
+                gap: 10px;
+                border-radius: 20px;
+                overflow: hidden;
+            }
+            .mosaic img {
+                width: 100%;
+                height: 100%;
+                object-fit: cover;
+                display: block;
+            }
+            .mosaic .m-big {
+                grid-row: 1/3;
+            }
+            .mosaic img:hover {
+                opacity: 0.9;
+                transition: opacity 0.2s;
+            }
+
+            /* ── PRODUCTS ── */
+            .prod-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
+                gap: 16px;
+            }
+            .prod-card {
+                border-radius: 18px;
+                border: 1px solid var(--g2);
+                background: var(--white);
+                overflow: hidden;
+                cursor: pointer;
+                transition: all 0.18s;
+            }
+            .prod-card:hover {
+                border-color: var(--green);
+                box-shadow: 0 4px 16px rgba(26, 124, 74, 0.1);
+            }
+            .prod-img {
+                width: 100%;
+                height: 120px;
+                object-fit: cover;
+            }
+            .prod-body {
+                padding: 12px;
+            }
+            .prod-name {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--black);
+                margin-bottom: 3px;
+            }
+            .prod-farm {
+                font-size: 11px;
+                color: var(--g4);
+                margin-bottom: 6px;
+            }
+            .prod-price {
+                font-size: 15px;
+                font-weight: 900;
+                color: var(--green);
+            }
+
+            /* ── EMAIL ── */
+            .email-wrap {
+                max-width: 520px;
+                margin: 0 auto;
+                text-align: center;
+                padding: 56px 32px;
+            }
+            .email-wrap h2 {
+                font-size: 24px;
+                font-weight: 900;
+                letter-spacing: -0.02em;
+                margin-bottom: 8px;
+            }
+            .email-wrap p {
+                font-size: 14px;
+                color: var(--g7);
+                margin-bottom: 22px;
+                line-height: 1.6;
+            }
+            .email-row {
+                display: flex;
+                gap: 8px;
+            }
+            .email-row input {
+                flex: 1;
+                border: 1px solid var(--g2);
+                border-radius: 12px;
+                padding: 12px 16px;
+                font-size: 14px;
+                outline: none;
+            }
+            .email-note {
+                font-size: 11px;
+                color: var(--g4);
+                margin-top: 10px;
+            }
+
+            /* ── FOOTER ── */
+            .footer {
+                background: var(--black);
+            }
+            .footer-inner {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 48px 32px;
+            }
+            .footer-cols {
+                display: grid;
+                grid-template-columns: repeat(4, 1fr);
+                gap: 32px;
+                margin-bottom: 36px;
+            }
+            .footer-col h4 {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--white);
+                margin-bottom: 12px;
+            }
+            .footer-col a {
+                display: block;
+                font-size: 12px;
+                color: #888;
+                margin-bottom: 8px;
+                transition: color 0.15s;
+            }
+            .footer-col a:hover {
+                color: var(--white);
+            }
+            .footer-bottom {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                gap: 12px;
+                padding-top: 24px;
+                border-top: 1px solid #2a2a2a;
+            }
+            .footer-logo-text {
+                font-size: 18px;
+                font-weight: 900;
+                color: var(--white);
+            }
+            .footer-logo-text span {
+                color: #74dfa2;
+            }
+            .footer-copy {
+                font-size: 11px;
+                color: #555;
+            }
+            .footer-links {
+                display: flex;
+                gap: 16px;
+            }
+            .footer-links a {
+                font-size: 11px;
+                color: #555;
+                transition: color 0.15s;
+            }
+            .footer-links a:hover {
+                color: var(--white);
+            }
+
+            /* ── DETAIL PAGE ── */
+            .detail-page {
+                max-width: 1280px;
+                margin: 0 auto;
+                padding: 32px;
+            }
+            .back-btn {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--green);
+                background: none;
+                border: none;
+                margin-bottom: 24px;
+            }
+            .detail-grid {
+                display: grid;
+                grid-template-columns: 1fr 380px;
+                gap: 40px;
+                align-items: start;
+            }
+            .detail-hero-img {
+                width: 100%;
+                height: 420px;
+                object-fit: cover;
+                border-radius: 20px;
+                margin-bottom: 20px;
+                display: block;
+            }
+            .detail-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 8px;
+                margin-bottom: 16px;
+            }
+            .detail-title {
+                font-size: 2rem;
+                font-weight: 900;
+                letter-spacing: -0.02em;
+                color: var(--black);
+                margin-bottom: 10px;
+                line-height: 1.1;
+            }
+            .detail-meta {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 16px;
+                font-size: 13px;
+                color: var(--g7);
+                margin-bottom: 8px;
+            }
+            .detail-rating {
+                display: flex;
+                align-items: center;
+                gap: 6px;
+                margin-bottom: 24px;
+            }
+            .detail-desc {
+                font-size: 15px;
+                color: var(--g7);
+                line-height: 1.75;
+                margin-bottom: 36px;
+            }
+            .detail-section {
+                margin-bottom: 36px;
+            }
+            .detail-section h2 {
+                font-size: 18px;
+                font-weight: 900;
+                color: var(--black);
+                margin-bottom: 16px;
+            }
+            .itinerary-step {
+                display: flex;
+                gap: 14px;
+                align-items: flex-start;
+                padding: 14px;
+                border-radius: 12px;
+                background: var(--g1);
+                margin-bottom: 8px;
+            }
+            .step-num {
+                width: 28px;
+                height: 28px;
+                border-radius: 50%;
+                background: var(--green);
+                color: var(--white);
+                font-size: 11px;
+                font-weight: 900;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+            }
+            .step-text {
+                font-size: 13px;
+                color: var(--g7);
+                padding-top: 4px;
+                line-height: 1.5;
+            }
+            .edu-panel {
+                border-radius: 20px;
+                padding: 28px;
+                background: var(--green-pale);
+                border: 1px solid #c8e6d4;
+                margin-bottom: 36px;
+            }
+            .edu-panel h2 {
+                font-size: 18px;
+                font-weight: 900;
+                color: var(--black);
+                margin-bottom: 20px;
+            }
+            .edu-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 24px;
+            }
+            .edu-label {
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--green);
+                margin-bottom: 6px;
+            }
+            .edu-val {
+                font-size: 13px;
+                color: var(--black);
+            }
+            .outcome-list {
+                list-style: none;
+                space-y: 6px;
+            }
+            .outcome-item {
+                display: flex;
+                align-items: flex-start;
+                gap: 8px;
+                font-size: 13px;
+                color: var(--g7);
+                margin-bottom: 7px;
+            }
+            .outcome-dot {
+                width: 18px;
+                height: 18px;
+                border-radius: 50%;
+                background: var(--green);
+                color: var(--white);
+                font-size: 9px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                margin-top: 1px;
+            }
+            .paired-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 12px;
+            }
+            .paired-card {
+                display: flex;
+                gap: 12px;
+                align-items: center;
+                padding: 12px;
+                border-radius: 14px;
+                border: 1px solid var(--g2);
+                cursor: pointer;
+                transition: border-color 0.18s;
+            }
+            .paired-card:hover {
+                border-color: var(--green);
+            }
+            .paired-img {
+                width: 62px;
+                height: 62px;
+                border-radius: 10px;
+                object-fit: cover;
+                flex-shrink: 0;
+            }
+            .paired-title {
+                font-size: 13px;
+                font-weight: 700;
+                color: var(--black);
+                margin-bottom: 3px;
+                line-height: 1.3;
+            }
+            .paired-loc {
+                font-size: 11px;
+                color: var(--g4);
+                margin-bottom: 3px;
+            }
+            .paired-price {
+                font-size: 13px;
+                font-weight: 900;
+                color: var(--green);
+            }
+
+            /* ── BOOKING CARD ── */
+            .book-card {
+                position: sticky;
+                top: 88px;
+                border: 1px solid var(--g2);
+                border-radius: 24px;
+                padding: 24px;
+                box-shadow: 0 8px 36px rgba(0, 0, 0, 0.1);
+            }
+            .book-from {
+                font-size: 12px;
+                color: var(--g4);
+                margin-bottom: 2px;
+            }
+            .book-price {
+                font-size: 2rem;
+                font-weight: 900;
+                color: var(--black);
+                margin-bottom: 2px;
+                line-height: 1;
+            }
+            .book-price span {
+                font-size: 14px;
+                font-weight: 400;
+                color: var(--g4);
+            }
+            .book-group-price {
+                font-size: 13px;
+                color: var(--green);
+                margin-bottom: 18px;
+            }
+            .book-toggle {
+                display: flex;
+                border: 1px solid var(--g2);
+                border-radius: 12px;
+                overflow: hidden;
+                margin-bottom: 16px;
+            }
+            .book-tab {
+                flex: 1;
+                padding: 10px;
+                font-size: 13px;
+                font-weight: 700;
+                border: none;
+                transition: all 0.15s;
+            }
+            .book-tab.active {
+                background: var(--black);
+                color: var(--white);
+            }
+            .book-tab:not(.active) {
+                background: var(--white);
+                color: var(--g7);
+            }
+            .school-note {
+                padding: 10px 12px;
+                border-radius: 10px;
+                background: #fff3e0;
+                font-size: 12px;
+                font-weight: 600;
+                color: #e65100;
+                margin-bottom: 14px;
+            }
+            .book-label {
+                font-size: 10px;
+                font-weight: 700;
+                letter-spacing: 0.1em;
+                text-transform: uppercase;
+                color: var(--g7);
+                margin-bottom: 6px;
+            }
+            .book-date-input {
+                width: 100%;
+                border: 1px solid var(--g2);
+                border-radius: 12px;
+                padding: 11px 14px;
+                font-size: 14px;
+                outline: none;
+                margin-bottom: 14px;
+            }
+            .pax-row {
+                display: flex;
+                align-items: center;
+                gap: 14px;
+                margin-bottom: 18px;
+            }
+            .pax-btn {
+                width: 36px;
+                height: 36px;
+                border-radius: 50%;
+                border: 1px solid var(--g2);
+                background: var(--white);
+                font-size: 18px;
+                font-weight: 700;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            .pax-btn:hover {
+                border-color: var(--green);
+                color: var(--green);
+            }
+            .pax-num {
+                font-size: 22px;
+                font-weight: 900;
+                color: var(--black);
+                width: 32px;
+                text-align: center;
+            }
+            .book-total-row {
+                display: flex;
+                justify-content: space-between;
+                font-size: 13px;
+                color: var(--g4);
+                margin-bottom: 6px;
+            }
+            .book-grand {
+                display: flex;
+                justify-content: space-between;
+                font-size: 18px;
+                font-weight: 900;
+                padding-top: 10px;
+                border-top: 1px solid var(--g2);
+                margin-bottom: 16px;
+            }
+            .book-grand span:last-child {
+                color: var(--green);
+            }
+            .book-trust {
+                margin-top: 16px;
+                display: flex;
+                flex-direction: column;
+                gap: 8px;
+            }
+            .trust-row {
+                display: flex;
+                gap: 8px;
+                font-size: 12px;
+                color: var(--g7);
+            }
+            .school-next-note {
+                font-size: 11px;
+                text-align: center;
+                color: var(--g4);
+                margin-top: 6px;
+            }
+
+            /* ── CONFIRM PAGE ── */
+            .confirm-page {
+                max-width: 600px;
+                margin: 0 auto;
+                padding: 80px 32px;
+                text-align: center;
+            }
+            .confirm-icon {
+                width: 80px;
+                height: 80px;
+                border-radius: 50%;
+                background: var(--green-pale);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 40px;
+                margin: 0 auto 24px;
+            }
+            .confirm-title {
+                font-size: 2rem;
+                font-weight: 900;
+                letter-spacing: -0.02em;
+                margin-bottom: 12px;
+            }
+            .confirm-sub {
+                font-size: 15px;
+                color: var(--g7);
+                line-height: 1.65;
+                max-width: 440px;
+                margin: 0 auto 32px;
+            }
+            .confirm-card {
+                border: 1px solid var(--g2);
+                border-radius: 20px;
+                padding: 24px;
+                text-align: left;
+                margin-bottom: 24px;
+                box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+            }
+            .confirm-exp {
+                display: flex;
+                gap: 14px;
+                align-items: center;
+                margin-bottom: 18px;
+            }
+            .confirm-exp-img {
+                width: 64px;
+                height: 64px;
+                border-radius: 14px;
+                object-fit: cover;
+                flex-shrink: 0;
+            }
+            .confirm-exp-title {
+                font-size: 15px;
+                font-weight: 700;
+                color: var(--black);
+            }
+            .confirm-exp-loc {
+                font-size: 12px;
+                color: var(--g4);
+            }
+            .confirm-row {
+                display: flex;
+                justify-content: space-between;
+                font-size: 13px;
+                padding: 5px 0;
+            }
+            .confirm-row span:first-child {
+                color: var(--g4);
+            }
+            .confirm-row.total {
+                font-size: 16px;
+                font-weight: 900;
+                padding-top: 12px;
+                border-top: 1px solid var(--g2);
+                margin-top: 4px;
+            }
+            .confirm-row.total span:last-child {
+                color: var(--green);
+            }
+            .next-steps {
+                border-radius: 14px;
+                padding: 18px;
+                background: #fff8e1;
+                text-align: left;
+                margin-bottom: 24px;
+            }
+            .next-steps h3 {
+                font-size: 13px;
+                font-weight: 700;
+                color: #e65100;
+                margin-bottom: 10px;
+            }
+            .next-steps li {
+                font-size: 13px;
+                color: var(--g7);
+                margin-bottom: 6px;
+                list-style: none;
+                display: flex;
+                gap: 8px;
+            }
+            .next-steps li span {
+                font-weight: 700;
+                color: #e65100;
+            }
+
+            /* ── RESPONSIVE ── */
+            @media (max-width: 900px) {
+                .detail-grid {
+                    grid-template-columns: 1fr;
+                }
+                .book-card {
+                    position: static;
+                }
+                .mission-grid {
+                    grid-template-columns: 1fr;
+                }
+                .mosaic {
+                    grid-template-columns: 1fr 1fr;
+                    grid-template-rows: 180px 180px;
+                }
+                .mosaic .m-big {
+                    grid-row: 1;
+                }
+                .footer-cols {
+                    grid-template-columns: repeat(2, 1fr);
+                }
+                .edu-grid {
+                    grid-template-columns: 1fr;
+                }
+                .paired-grid {
+                    grid-template-columns: 1fr;
+                }
+            }
+            @media (max-width: 640px) {
+                .nav-main {
+                    padding: 10px 16px;
+                }
+                .hero-stats {
+                    display: none;
+                }
+                .cat-strip,
+                .carousel,
+                .prod-grid {
+                    padding-left: 16px;
+                }
+                .section {
+                    padding: 36px 16px;
+                }
+                .mission-cards {
+                    grid-template-columns: 1fr;
+                }
+                .mosaic {
+                    grid-template-columns: 1fr;
+                    height: auto;
+                }
+                .mosaic .m-big {
+                    grid-row: auto;
+                }
+            }
+        </style>
+    </head>
+    <body>
+        <!-- ═══════════════════════════════════════════════════
+     NAV
+═══════════════════════════════════════════════════ -->
+        <header class="nav" id="topnav">
+            <div class="nav-main">
+                <!-- LOGO (SVG recreation of the AgriMigo wordmark with plant icon) -->
+                <a class="logo" href="#" onclick="showPage('home')">
+                    <img
+                        src="AgriMigo Logo.png"
+                        alt="AgriMigo"
+                        style="height: 120px; width: auto"
+                    />
+                </a>
+
+                <!-- search -->
+                <div class="search-bar">
+                    <svg width="17" height="17" viewBox="0 0 18 18" fill="none">
+                        <circle
+                            cx="7.5"
+                            cy="7.5"
+                            r="5.5"
+                            stroke="#9A9A9A"
+                            stroke-width="1.8"
+                        />
+                        <path
+                            d="M11.5 11.5L16 16"
+                            stroke="#9A9A9A"
+                            stroke-width="1.8"
+                            stroke-linecap="round"
+                        />
+                    </svg>
+                    <input
+                        id="main-search"
+                        type="text"
+                        placeholder="Search farm experiences in Queensland..."
+                        value="Farm experiences in Queensland"
+                    />
+                    <button class="btn-search" onclick="handleSearch()">
+                        Search
+                    </button>
+                </div>
+
+                <!-- icons -->
+                <div class="nav-icons">
+                    <button class="nav-icon-btn">
+                        <span class="ico">♡</span><span>Wishlist</span>
+                    </button>
+                    <button class="nav-icon-btn">
+                        <span class="ico">🛒</span><span>Cart</span>
+                    </button>
+                    <button class="nav-icon-btn">
+                        <span class="ico">👤</span><span>Profile</span>
+                    </button>
+                    <button class="btn-lang">EN / AUD $</button>
+                </div>
+            </div>
+
+            <!-- category strip -->
+            <div class="cat-wrap">
+                <div class="cat-strip" id="catstrip">
+                    <button
+                        class="cat-pill active"
+                        onclick="filterCat('All', this)"
+                    >
+                        ✦ All
+                    </button>
+                    <button
+                        class="cat-pill"
+                        onclick="filterCat('Fruit & Crop', this)"
+                    >
+                        🍎 Fruit &amp; Crop
+                    </button>
+                    <button
+                        class="cat-pill"
+                        onclick="filterCat('Livestock', this)"
+                    >
+                        🐄 Livestock
+                    </button>
+                    <button
+                        class="cat-pill"
+                        onclick="filterCat('AgTech', this)"
+                    >
+                        🛰️ AgTech
+                    </button>
+                    <button class="cat-pill" onclick="filterCat('Food', this)">
+                        🍽️ Food &amp; Dining
+                    </button>
+                    <button
+                        class="cat-pill"
+                        onclick="filterCat('Adventure', this)"
+                    >
+                        🚜 Adventure
+                    </button>
+                    <button
+                        class="cat-pill"
+                        onclick="filterCat('Farm Stays', this)"
+                    >
+                        🌿 Farm Stays
+                    </button>
+                    <button
+                        class="cat-pill"
+                        onclick="filterCat('School', this)"
+                    >
+                        🏫 School Trips
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <!-- ═══════════════════════════════════════════════════
+     HOME PAGE
+═══════════════════════════════════════════════════ -->
+        <div id="page-home">
+            <!-- HERO -->
+            <section class="hero">
+                <img
+                    class="hero-img"
+                    src="https://images.unsplash.com/photo-1500651230702-0e2d8a49d4ad?w=1600&q=85"
+                    alt="Queensland farm at sunrise"
+                />
+                <div class="hero-ov"></div>
+                <div class="hero-body">
+                    <div class="hero-inner">
+                        <div class="hero-content">
+                            <p class="hero-eye">Queensland, Australia</p>
+                            <h1 class="hero-title">
+                                Experience<br />Agriculture<br /><span
+                                    class="acc"
+                                    >with AgriMigo</span
+                                >
+                            </h1>
+
+                            <p class="hero-sub">
+                                Hands-on farm adventures for schools, families,
+                                and tourists across the Sunshine State.
+                            </p>
+                            <div class="hero-search">
+                                <input
+                                    type="text"
+                                    placeholder="📍 Location in Queensland"
+                                />
+                                <input type="text" placeholder="📅 When?" />
+                                <button class="btn btn-g">Search</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-stats">
+                    <div>
+                        <div class="hs-n">120+</div>
+                        <div class="hs-l">Experiences</div>
+                    </div>
+                    <div>
+                        <div class="hs-n">50+</div>
+                        <div class="hs-l">Partner Farms</div>
+                    </div>
+                    <div>
+                        <div class="hs-n">5,000+</div>
+                        <div class="hs-l">Happy Visitors</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- SCHOOL BANNER -->
+            <div class="school-banner">
+                <div class="school-banner-inner">
+                    <div class="sb-left">
+                        <div class="sb-icon">🏫</div>
+                        <div>
+                            <div class="sb-title">
+                                Perfect for School Excursions
+                            </div>
+                            <div class="sb-sub">
+                                Curriculum-aligned · Group pricing · Risk
+                                assessments provided · Invoice billing for
+                                schools
+                            </div>
+                        </div>
+                    </div>
+                    <button class="btn btn-g" onclick="scrollTo(0, 0)">
+                        Plan Your School Trip →
+                    </button>
+                </div>
+            </div>
+
+            <!-- PHOTO MOSAIC -->
+            <div class="section">
+                <div class="sec-head">
+                    <div>
+                        <h2 class="sec-h2">Life on Queensland Farms</h2>
+                        <p class="sec-sub">
+                            Real experiences, real farms, real memories
+                        </p>
+                    </div>
+                </div>
+                <div class="mosaic">
+                    <img
+                        class="m-big"
+                        src="https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=800&q=80"
+                        alt="Farm landscape"
+                    />
+                    <img
+                        src="https://granitebeltwinecountry.com.au/wp-content/uploads/2022/02/Eastern-Colour-apple-orchard-resized-078.jpg"
+                        alt="Apple picking"
+                    />
+                    <img
+                        src="https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=600&q=80"
+                        alt="Farm fields"
+                    />
+                    <img
+                        src="https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=600&q=80"
+                        alt="Cattle station"
+                    />
+                    <img
+                        src="https://images.unsplash.com/photo-1490818387583-1baba5e638af?w=600&q=80"
+                        alt="Fresh produce"
+                    />
+                </div>
+            </div>
+
+            <!-- FEATURED CAROUSEL -->
+            <div class="section" style="padding-top: 0">
+                <div class="sec-head">
+                    <div>
+                        <h2 class="sec-h2">Featured Farm Experiences</h2>
+                        <p class="sec-sub">
+                            Queensland's most popular agri-tourism adventures
+                        </p>
+                    </div>
+                    <button class="sec-link">View all →</button>
+                </div>
+                <div class="carousel-wrap">
+                    <button
+                        class="car-btn car-prev"
+                        onclick="scrollCar('car-featured', -1)"
+                    >
+                        ‹
+                    </button>
+                    <div class="carousel" id="car-featured"></div>
+                    <button
+                        class="car-btn car-next"
+                        onclick="scrollCar('car-featured', 1)"
+                    >
+                        ›
+                    </button>
+                </div>
+            </div>
+
+            <!-- CATEGORY GRID -->
+            <div class="bg-grey-wrap">
+                <div class="section">
+                    <div class="sec-head">
+                        <div>
+                            <h2 class="sec-h2">Browse by Category</h2>
+                            <p class="sec-sub">
+                                Find the perfect farm adventure for your group
+                            </p>
+                        </div>
+                    </div>
+                    <div class="cat-grid" id="cat-grid"></div>
+                </div>
+            </div>
+
+            <!-- STUDENTS CAROUSEL -->
+            <div class="section">
+                <div class="sec-head">
+                    <div>
+                        <span class="chip chip-g">🏫 Education Focus</span>
+                        <h2 class="sec-h2">Top Experiences for Students</h2>
+                        <p class="sec-sub">
+                            Curriculum-aligned, hands-on, and designed for
+                            school groups
+                        </p>
+                    </div>
+                    <button class="sec-link">View all →</button>
+                </div>
+                <div class="carousel-wrap">
+                    <button
+                        class="car-btn car-prev"
+                        onclick="scrollCar('car-school', -1)"
+                    >
+                        ‹
+                    </button>
+                    <div class="carousel" id="car-school"></div>
+                    <button
+                        class="car-btn car-next"
+                        onclick="scrollCar('car-school', 1)"
+                    >
+                        ›
+                    </button>
+                </div>
+            </div>
+
+            <!-- WHY SCHOOLS LOVE AGRIMIGO -->
+            <div class="bg-pale-wrap">
+                <div class="section">
+                    <div style="text-align: center; margin-bottom: 40px">
+                        <h2 class="sec-h2" style="font-size: 28px">
+                            Why Schools Love AgriMigo
+                        </h2>
+                        <p
+                            class="sec-sub"
+                            style="margin-top: 6px; font-size: 14px"
+                        >
+                            We make farm excursions easy, safe, and
+                            educationally meaningful
+                        </p>
+                    </div>
+                    <div class="feat-grid">
+                        <div class="feat-card">
+                            <div class="feat-ico">📋</div>
+                            <div class="feat-title">Curriculum Aligned</div>
+                            <div class="feat-desc">
+                                All experiences map to Australian Curriculum
+                                standards across Science, HASS and Technologies.
+                            </div>
+                        </div>
+                        <div class="feat-card">
+                            <div class="feat-ico">👩‍🏫</div>
+                            <div class="feat-title">Teacher Resources</div>
+                            <div class="feat-desc">
+                                Pre and post-visit classroom activities,
+                                discussion guides, and risk assessments
+                                included.
+                            </div>
+                        </div>
+                        <div class="feat-card">
+                            <div class="feat-ico">💰</div>
+                            <div class="feat-title">Group Pricing</div>
+                            <div class="feat-desc">
+                                Dedicated group rates with invoice-based payment
+                                suitable for school administration.
+                            </div>
+                        </div>
+                        <div class="feat-card">
+                            <div class="feat-ico">🛡️</div>
+                            <div class="feat-title">Safety First</div>
+                            <div class="feat-desc">
+                                All farms are vetted, insurance verified, and
+                                safety briefings are part of every experience.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AGTECH CAROUSEL -->
+            <div class="section">
+                <div class="sec-head">
+                    <div>
+                        <span class="chip chip-p">🛰️ Future of Farming</span>
+                        <h2 class="sec-h2">
+                            AgTech &amp; Educational Experiences
+                        </h2>
+                        <p class="sec-sub">Where STEM meets the paddock</p>
+                    </div>
+                </div>
+                <div class="carousel-wrap">
+                    <button
+                        class="car-btn car-prev"
+                        onclick="scrollCar('car-agtech', -1)"
+                    >
+                        ‹
+                    </button>
+                    <div class="carousel" id="car-agtech"></div>
+                    <button
+                        class="car-btn car-next"
+                        onclick="scrollCar('car-agtech', 1)"
+                    >
+                        ›
+                    </button>
+                </div>
+            </div>
+
+            <!-- WHY AGRICULTURE MATTERS -->
+            <div class="bg-black-wrap">
+                <div class="mission-grid">
+                    <div class="mission-left">
+                        <span class="chip chip-a">Our Mission</span>
+                        <h2>Why Agriculture<br />Matters to Us</h2>
+                        <p>
+                            Queensland's farmers feed millions — yet fewer young
+                            Australians choose agriculture as a career. The
+                            average farmer is over 55. AgriMigo is changing that
+                            story, one school trip at a time.
+                        </p>
+                        <button
+                            class="btn btn-k"
+                            style="background: #1a7c4a"
+                            onmouseover="this.style.background = '#0F5C35'"
+                            onmouseout="this.style.background = '#1A7C4A'"
+                        >
+                            Learn About Our Mission
+                        </button>
+                    </div>
+                    <div class="mission-cards">
+                        <div class="mission-card">
+                            <div class="m-ico">👩‍🌾</div>
+                            <h3>Aging Farmer Crisis</h3>
+                            <p>
+                                Average QLD farmer is 55+. We need the next
+                                generation to step up and carry the paddock
+                                forward.
+                            </p>
+                        </div>
+                        <div class="mission-card">
+                            <div class="m-ico">🌾</div>
+                            <h3>Food Security</h3>
+                            <p>
+                                Australians deserve to understand where their
+                                food really comes from — from paddock to plate.
+                            </p>
+                        </div>
+                        <div class="mission-card">
+                            <div class="m-ico">📡</div>
+                            <h3>AgTech Boom</h3>
+                            <p>
+                                Modern farming blends science, data and tech —
+                                one of Australia's most exciting career paths.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- FARM PRODUCTS -->
+            <div class="section">
+                <div class="sec-head">
+                    <div>
+                        <h2 class="sec-h2">Best Local Farm Products</h2>
+                        <p class="sec-sub">
+                            Take a little bit of the farm home with you
+                        </p>
+                    </div>
+                </div>
+                <div class="prod-grid">
+                    <div class="prod-card">
+                        <img
+                            class="prod-img"
+                            src="https://images.unsplash.com/photo-1587049352846-4a222e784d38?w=400&q=80"
+                            alt="Honey"
+                        />
+                        <div class="prod-body">
+                            <div class="prod-name">Granite Belt Honey</div>
+                            <div class="prod-farm">Stanthorpe Apiary</div>
+                            <div class="prod-price">A$18</div>
+                        </div>
+                    </div>
+                    <div class="prod-card">
+                        <img
+                            class="prod-img"
+                            src="https://images.unsplash.com/photo-1486297678162-eb2a19b0a32d?w=400&q=80"
+                            alt="Cheese"
+                        />
+                        <div class="prod-body">
+                            <div class="prod-name">Scenic Rim Goat Cheese</div>
+                            <div class="prod-farm">Green Valley Dairy</div>
+                            <div class="prod-price">A$24</div>
+                        </div>
+                    </div>
+                    <div class="prod-card">
+                        <img
+                            class="prod-img"
+                            src="https://images.unsplash.com/photo-1474979266404-7eaacbcd87c5?w=400&q=80"
+                            alt="Olive Oil"
+                        />
+                        <div class="prod-body">
+                            <div class="prod-name">Darling Downs Olive Oil</div>
+                            <div class="prod-farm">Hillcrest Olives</div>
+                            <div class="prod-price">A$32</div>
+                        </div>
+                    </div>
+                    <div class="prod-card">
+                        <img
+                            class="prod-img"
+                            src="https://images.unsplash.com/photo-1553279768-865429fa0078?w=400&q=80"
+                            alt="Mango"
+                        />
+                        <div class="prod-body">
+                            <div class="prod-name">Tropical Mango Chutney</div>
+                            <div class="prod-farm">Bowen Orchards</div>
+                            <div class="prod-price">A$14</div>
+                        </div>
+                    </div>
+                    <div class="prod-card">
+                        <img
+                            class="prod-img"
+                            src="https://images.unsplash.com/photo-1541781774459-bb2af2f05b55?w=400&q=80"
+                            alt="Nuts"
+                        />
+                        <div class="prod-body">
+                            <div class="prod-name">Macadamia Butter</div>
+                            <div class="prod-farm">Sunshine Nut Co.</div>
+                            <div class="prod-price">A$16</div>
+                        </div>
+                    </div>
+                    <div class="prod-card">
+                        <img
+                            class="prod-img"
+                            src="https://images.unsplash.com/photo-1563805042-7684c019e1cb?w=400&q=80"
+                            alt="Preserves"
+                        />
+                        <div class="prod-body">
+                            <div class="prod-name">Farm Fresh Preserves</div>
+                            <div class="prod-farm">Lockyer Valley</div>
+                            <div class="prod-price">A$12</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- EMAIL -->
+            <div class="bg-pale-wrap">
+                <div class="email-wrap">
+                    <h2>Stay in the Loop 🌱</h2>
+                    <p>
+                        New farm experiences, school excursion offers, and
+                        seasonal specials — straight to your inbox.
+                    </p>
+                    <div class="email-row">
+                        <input type="email" placeholder="Your email address" />
+                        <button class="btn btn-g">Subscribe</button>
+                    </div>
+                    <p class="email-note">No spam. Unsubscribe any time.</p>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <footer class="footer">
+                <div class="footer-inner">
+                    <div class="footer-cols">
+                        <div class="footer-col">
+                            <h4>AgriMigo</h4>
+                            <a href="#">About Us</a><a href="#">How It Works</a
+                            ><a href="#">For Farmers</a><a href="#">Careers</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Experiences</h4>
+                            <a href="#">Browse All</a
+                            ><a href="#">School Trips</a
+                            ><a href="#">AgTech Tours</a
+                            ><a href="#">Farm Stays</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Support</h4>
+                            <a href="#">Help Centre</a><a href="#">Contact Us</a
+                            ><a href="#">Safety Info</a
+                            ><a href="#">Cancellations</a>
+                        </div>
+                        <div class="footer-col">
+                            <h4>Follow Us</h4>
+                            <a href="#">Instagram</a><a href="#">Facebook</a
+                            ><a href="#">LinkedIn</a><a href="#">YouTube</a>
+                        </div>
+                    </div>
+                    <div class="footer-bottom">
+                        <div class="footer-logo-text">
+                            Agri<span>Migo</span>
+                        </div>
+                        <div class="footer-copy">
+                            © 2025 AgriMigo Pty Ltd · Queensland, Australia ·
+                            ABN 12 345 678 901
+                        </div>
+                        <div class="footer-links">
+                            <a href="#">Privacy</a><a href="#">Terms</a
+                            ><a href="#">Accessibility</a>
+                        </div>
+                    </div>
+                </div>
+            </footer>
+        </div>
+        <!-- /page-home -->
+
+        <!-- ═══════════════════════════════════════════════════
+     DETAIL PAGE
+═══════════════════════════════════════════════════ -->
+        <div id="page-detail" style="display: none">
+            <div class="detail-page">
+                <button class="back-btn" onclick="showPage('home')">
+                    ← Back to experiences
+                </button>
+                <div class="detail-grid">
+                    <div id="detail-left"></div>
+                    <div id="detail-right"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+     CONFIRM PAGE
+═══════════════════════════════════════════════════ -->
+        <div id="page-confirm" style="display: none">
+            <div class="confirm-page" id="confirm-content"></div>
+        </div>
+
+        <!-- ═══════════════════════════════════════════════════
+     DATA + JAVASCRIPT
+═══════════════════════════════════════════════════ -->
+        <script>
+            /* ── DATA ── */
+            const EXPS = [
+                {
+                    id: 1,
+                    title: "Apple Picking in Granite Belt Orchard",
+                    location: "Stanthorpe, QLD",
+                    dur: "4–6 hours",
+                    price: 45,
+                    groupPrice: 32,
+                    rating: 4.5,
+                    reviews: 2324,
+                    img: "https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=700&q=80",
+                    badge: "Top Pick",
+                    badgeColor: "#1565C0",
+                    tags: ["School Friendly", "Hands-On", "Beginner"],
+                    cat: "Fruit & Crop",
+                    ageGroup: "Years 3–10",
+                    minG: 10,
+                    maxG: 60,
+                    desc: "Spend a morning among apple-laden trees in Queensland's famous Granite Belt. Pick your own apples, learn about orchard management from a third-generation farmer, and take home a bag of fresh produce.",
+                    itin: [
+                        "Welcome & orchard overview (30 min)",
+                        "Guided picking with farmer (2 hrs)",
+                        "Apple varieties tasting (45 min)",
+                        "Farm tour & Q&A (1 hr)",
+                        "Pack your harvest bag",
+                    ],
+                    outcomes: [
+                        "Understand seasonal crop cycles",
+                        "Learn sustainable orchard practices",
+                        "Explore farm-to-table food systems",
+                        "Introduction to horticulture careers",
+                    ],
+                    curriculum: "Science (ACSSSU094), Geography (ACHGK053)",
+                    paired: [2, 7],
+                },
+                {
+                    id: 2,
+                    title: "Goat Milking & Artisan Cheese Making",
+                    location: "Scenic Rim, QLD",
+                    dur: "2–3 hours",
+                    price: 65,
+                    groupPrice: 48,
+                    rating: 4.7,
+                    reviews: 1321,
+                    img: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=700&q=80",
+                    badge: "Likely to Sell Out",
+                    badgeColor: "#E65100",
+                    tags: ["School Friendly", "Hands-On"],
+                    cat: "Livestock",
+                    ageGroup: "Years 5–12",
+                    minG: 8,
+                    maxG: 30,
+                    desc: "Get up close with friendly dairy goats, learn hand-milking techniques, and transform fresh milk into artisan cheese under the guidance of an award-winning cheesemaker.",
+                    itin: [
+                        "Meet the herd & safety briefing (20 min)",
+                        "Hand milking demo & try (45 min)",
+                        "Cheese making workshop (1 hr)",
+                        "Taste your creations with local produce",
+                    ],
+                    outcomes: [
+                        "Animal husbandry fundamentals",
+                        "Food science & dairy processing",
+                        "Sustainable small-farm economics",
+                        "Food safety and hygiene",
+                    ],
+                    curriculum: "Science (ACSSU116), Technologies (ACTDEK032)",
+                    paired: [1, 8],
+                },
+                {
+                    id: 3,
+                    title: "Smart Farming & Drone Demo",
+                    location: "Toowoomba, Darling Downs QLD",
+                    dur: "3–4 hours",
+                    price: 55,
+                    groupPrice: 38,
+                    rating: 4.9,
+                    reviews: 89,
+                    img: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=700&q=80",
+                    badge: "Top Pick",
+                    badgeColor: "#1565C0",
+                    tags: ["School Friendly", "AgTech", "Hands-On"],
+                    cat: "AgTech",
+                    ageGroup: "Years 7–12",
+                    minG: 15,
+                    maxG: 50,
+                    desc: "Explore the future of farming. Students discover how drones, sensors, AI, and satellite data are revolutionising Queensland agriculture — including a live drone flight over working crops.",
+                    itin: [
+                        "Precision agriculture intro (40 min)",
+                        "Live drone flight & sensor demo (1 hr)",
+                        "Data analysis on tablets (45 min)",
+                        "AgTech career pathways talk (30 min)",
+                        "Q&A with AgTech engineer",
+                    ],
+                    outcomes: [
+                        "STEM applications in agriculture",
+                        "Data literacy and remote sensing",
+                        "Environmental monitoring techniques",
+                        "Future agricultural career pathways",
+                    ],
+                    curriculum:
+                        "Digital Technologies (ACTDIP036), Science (ACSSU188)",
+                    paired: [6, 4],
+                },
+                {
+                    id: 4,
+                    title: "Cattle Mustering on a Working Station",
+                    location: "Longreach, Central QLD",
+                    dur: "Full day (8 hrs)",
+                    price: 150,
+                    groupPrice: 110,
+                    rating: 4.8,
+                    reviews: 445,
+                    img: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=700&q=80",
+                    badge: "School Friendly",
+                    badgeColor: "#1A7C4A",
+                    tags: ["School Friendly", "Adventure", "Beginner"],
+                    cat: "Livestock",
+                    ageGroup: "Years 5–12",
+                    minG: 10,
+                    maxG: 40,
+                    desc: "Experience authentic outback station life. Ride horses or ATVs alongside stockmen, learn about Queensland's beef industry, and see real cattle handling in action.",
+                    itin: [
+                        "Station welcome & safety briefing (30 min)",
+                        "Horse or ATV allocation (30 min)",
+                        "Muster with stockmen (3 hrs)",
+                        "Cattle handling & yards tour (1.5 hrs)",
+                        "Outback lunch & campfire",
+                        "Station debrief & careers talk",
+                    ],
+                    outcomes: [
+                        "Beef cattle management",
+                        "Animal welfare standards in QLD",
+                        "Outback ecology and land management",
+                        "Agriculture career pathways",
+                    ],
+                    curriculum: "Geography (ACHGK053), Science (ACSSU116)",
+                    paired: [6, 5],
+                },
+                {
+                    id: 5,
+                    title: "Truffle Hunting in Granite Belt (Seasonal)",
+                    location: "Stanthorpe, QLD",
+                    dur: "6 hours",
+                    price: 120,
+                    groupPrice: 95,
+                    rating: 4.8,
+                    reviews: 12,
+                    img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=700&q=80",
+                    badge: "New Experience",
+                    badgeColor: "#6A1B9A",
+                    tags: ["Beginner", "Hands-On"],
+                    cat: "Fruit & Crop",
+                    ageGroup: "High School & Adults",
+                    minG: 4,
+                    maxG: 20,
+                    desc: "Join a trained truffle dog and experienced farmer for a morning hunt through Queensland's first truffle plantation. Discover how this luxury fungus is grown and harvested.",
+                    itin: [
+                        "Farm arrival & truffle overview (30 min)",
+                        "Hunt with truffle dog (2 hrs)",
+                        "Cleaning & grading truffles (45 min)",
+                        "Farm-to-table truffle lunch",
+                    ],
+                    outcomes: [
+                        "Fungal ecology & symbiosis",
+                        "Specialty crop economics",
+                        "Climate and soil science",
+                        "Agribusiness opportunities",
+                    ],
+                    curriculum: "Biology (ACSBL079), Business (ACHGK053)",
+                    paired: [1, 8],
+                },
+                {
+                    id: 6,
+                    title: "Sustainable Farming Workshop",
+                    location: "Sunshine Coast Hinterland, QLD",
+                    dur: "5 hours",
+                    price: 70,
+                    groupPrice: 50,
+                    rating: 4.75,
+                    reviews: 211,
+                    img: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=700&q=80",
+                    badge: "School Friendly",
+                    badgeColor: "#1A7C4A",
+                    tags: ["School Friendly", "Hands-On", "Beginner"],
+                    cat: "AgTech",
+                    ageGroup: "Years 4–12",
+                    minG: 10,
+                    maxG: 45,
+                    desc: "Hands-on workshop covering regenerative farming, composting, water harvesting, and soil health. Students plant seedlings they take home.",
+                    itin: [
+                        "Sustainability overview (30 min)",
+                        "Soil science station (1 hr)",
+                        "Composting & water systems (1 hr)",
+                        "Plant your own seedling (1 hr)",
+                        "Harvest a seasonal ingredient",
+                    ],
+                    outcomes: [
+                        "Soil health & regenerative agriculture",
+                        "Water cycle and conservation",
+                        "Climate change adaptation",
+                        "Sustainable food systems",
+                    ],
+                    curriculum: "Science (ACSSU176), Geography (ACHGK066)",
+                    paired: [3, 2],
+                },
+                {
+                    id: 7,
+                    title: "Mango Harvest Experience",
+                    location: "Bowen, North QLD",
+                    dur: "3–4 hours",
+                    price: 40,
+                    groupPrice: 28,
+                    rating: 4.6,
+                    reviews: 678,
+                    img: "https://images.unsplash.com/photo-1553279768-865429fa0078?w=700&q=80",
+                    badge: "Seasonal",
+                    badgeColor: "#E65100",
+                    tags: ["School Friendly", "Beginner", "Hands-On"],
+                    cat: "Fruit & Crop",
+                    ageGroup: "Years 1–8",
+                    minG: 10,
+                    maxG: 60,
+                    desc: "Visit one of Australia's largest mango orchards during peak season. Learn tropical horticulture and the full journey from tree to supermarket shelf.",
+                    itin: [
+                        "Orchard walk & mango varieties intro (30 min)",
+                        "Harvest demo & hands-on picking (1.5 hrs)",
+                        "Pack & grade mangoes (45 min)",
+                        "Fresh mango tasting & recipes",
+                    ],
+                    outcomes: [
+                        "Tropical horticulture",
+                        "Supply chain & food distribution",
+                        "Seasonal growing cycles",
+                        "Nutrition and food science",
+                    ],
+                    curriculum: "Science (ACSSU094), HASS (ACHASSK119)",
+                    paired: [1, 6],
+                },
+                {
+                    id: 8,
+                    title: "Farm-to-Table Dining Experience",
+                    location: "Lockyer Valley, QLD",
+                    dur: "4 hours",
+                    price: 95,
+                    groupPrice: 75,
+                    rating: 4.9,
+                    reviews: 332,
+                    img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=80",
+                    badge: "Top Pick",
+                    badgeColor: "#1565C0",
+                    tags: ["Hands-On", "Food & Dining"],
+                    cat: "Food",
+                    ageGroup: "All ages",
+                    minG: 8,
+                    maxG: 30,
+                    desc: "Harvest vegetables, herbs, and eggs directly from the farm, then cook a seasonal three-course meal with a celebrated local chef. A full sensory journey from seed to plate.",
+                    itin: [
+                        "Farm harvest walk (1 hr)",
+                        "Chef-guided cooking class (1.5 hrs)",
+                        "Sit-down farm table lunch (1 hr)",
+                        "Farmer Q&A over dessert",
+                    ],
+                    outcomes: [
+                        "Farm-to-table food systems",
+                        "Seasonal cooking & nutrition",
+                        "Food waste reduction",
+                        "Community food security",
+                    ],
+                    curriculum: "Health & PE, Technologies (ACTDEK032)",
+                    paired: [2, 6],
+                },
+            ];
+
+            const CATS = [
+                {
+                    name: "Fruit & Crop",
+                    icon: "🍎",
+                    img: "https://images.unsplash.com/photo-1570913149827-d2ac84ab3f9a?w=400&q=75",
+                },
+                {
+                    name: "Livestock",
+                    icon: "🐄",
+                    img: "https://images.unsplash.com/photo-1500595046743-cd271d694d30?w=400&q=75",
+                },
+                {
+                    name: "AgTech",
+                    icon: "🛰️",
+                    img: "https://images.unsplash.com/photo-1473968512647-3e447244af8f?w=400&q=75",
+                },
+                {
+                    name: "Food",
+                    icon: "🍽️",
+                    img: "https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=75",
+                },
+                {
+                    name: "Adventure",
+                    icon: "🚜",
+                    img: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=400&q=75",
+                },
+                {
+                    name: "Farm Stays",
+                    icon: "🌿",
+                    img: "https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=75",
+                },
+                {
+                    name: "School Trips",
+                    icon: "🏫",
+                    img: "https://images.unsplash.com/photo-1416879595882-3373a0480b5b?w=400&q=75",
+                },
+            ];
+
+            /* ── TAG CLASS MAP ── */
+            const tagClass = {
+                "School Friendly": "t-school",
+                "Hands-On": "t-hands",
+                Beginner: "t-begin",
+                AgTech: "t-agtech",
+                Adventure: "t-adv",
+                "Food & Dining": "t-food",
+                Seasonal: "t-season",
+            };
+
+            /* ── STATE ── */
+            let currentExp = null;
+            let bookType = "individual";
+            let pax = 1;
+            let chosenDate = "";
+
+            /* ── HELPERS ── */
+            function stars(r) {
+                let s = "";
+                for (let i = 1; i <= 5; i++)
+                    s += `<span style="color:${
+                        i <= Math.floor(r) ? "#FFC107" : "#E8E8E8"
+                    }">★</span>`;
+                return s;
+            }
+            function tagHTML(tags) {
+                return tags
+                    .map(
+                        (t) =>
+                            `<span class="tag ${tagClass[t] || ""}">${t}</span>`,
+                    )
+                    .join("");
+            }
+
+            /* ── BUILD CARD ── */
+            function buildCard(exp) {
+                return `
+  <div class="card" onclick="openDetail(${exp.id})">
+    <div class="card-img-wrap">
+      <img class="card-img" src="${exp.img}" alt="${exp.title}" loading="lazy"/>
+      <span class="card-badge" style="background:${exp.badgeColor}">${
+          exp.badge
+      }</span>
+      <button class="card-heart" onclick="event.stopPropagation();this.classList.toggle('liked');this.textContent=this.classList.contains('liked')?'♥':'♡'">♡</button>
+      <span class="card-dur">⏱ ${exp.dur}</span>
+    </div>
+    <div class="card-body">
+      <div class="card-loc">📍 ${exp.location}</div>
+      <div class="card-title">${exp.title}</div>
+      <div class="card-tags">${tagHTML(exp.tags)}</div>
+      <div class="card-stars">
+        <span class="stars-ico">${stars(exp.rating)}</span>
+        <span class="star-n">${exp.rating}</span>
+        <span class="star-c">(${exp.reviews.toLocaleString()})</span>
+      </div>
+      <div class="card-foot">
+        <div>
+          <div class="price-from">From</div>
+          <div class="price-val">A$${exp.price}<span>/pp</span></div>
+        </div>
+        <button class="btn btn-g sm" onclick="event.stopPropagation();openDetail(${
+            exp.id
+        })">Check →</button>
+      </div>
+    </div>
+  </div>`;
+            }
+
+            /* ── FILL CAROUSELS ── */
+            function fillCarousels() {
+                document.getElementById("car-featured").innerHTML =
+                    EXPS.map(buildCard).join("");
+                document.getElementById("car-school").innerHTML = EXPS.filter(
+                    (e) => e.tags.includes("School Friendly"),
+                )
+                    .map(buildCard)
+                    .join("");
+                document.getElementById("car-agtech").innerHTML = EXPS.filter(
+                    (e) => e.cat === "AgTech" || e.tags.includes("AgTech"),
+                )
+                    .map(buildCard)
+                    .join("");
+            }
+
+            /* ── FILL CATEGORY GRID ── */
+            function fillCatGrid() {
+                document.getElementById("cat-grid").innerHTML = CATS.map(
+                    (c) => `
+    <div class="cat-card">
+      <img class="cat-card-img" src="${c.img}" alt="${c.name}" loading="lazy"/>
+      <p>${c.icon} ${c.name}</p>
+    </div>`,
+                ).join("");
+            }
+
+            /* ── SCROLL CAROUSEL ── */
+            function scrollCar(id, dir) {
+                const el = document.getElementById(id);
+                el.scrollBy({ left: dir * 580, behavior: "smooth" });
+            }
+
+            /* ── FILTER BY CAT ── */
+            function filterCat(cat, btn) {
+                document
+                    .querySelectorAll(".cat-pill")
+                    .forEach((p) => p.classList.remove("active"));
+                btn.classList.add("active");
+                const filtered =
+                    cat === "All"
+                        ? EXPS
+                        : EXPS.filter(
+                              (e) =>
+                                  e.cat === cat ||
+                                  e.tags.some((t) =>
+                                      t
+                                          .toLowerCase()
+                                          .includes(cat.toLowerCase()),
+                                  ),
+                          );
+                document.getElementById("car-featured").innerHTML = filtered
+                    .map(buildCard)
+                    .join("");
+            }
+
+            /* ── PAGE SWITCH ── */
+            function showPage(name) {
+                ["home", "detail", "confirm"].forEach((p) => {
+                    document.getElementById("page-" + p).style.display =
+                        p === name ? "block" : "none";
+                });
+                window.scrollTo(0, 0);
+            }
+
+            /* ── OPEN DETAIL ── */
+            function openDetail(id) {
+                currentExp = EXPS.find((e) => e.id === id);
+                bookType = "individual";
+                pax = 1;
+                chosenDate = "";
+                renderDetail();
+                showPage("detail");
+            }
+
+            function renderDetail() {
+                const e = currentExp;
+                const paired = EXPS.filter((x) => e.paired.includes(x.id));
+
+                document.getElementById("detail-left").innerHTML = `
+    <img class="detail-hero-img" src="${e.img}" alt="${
+        e.title
+    }" loading="lazy"/>
+    <div class="detail-tags">${tagHTML(e.tags)}</div>
+    <h1 class="detail-title">${e.title}</h1>
+    <div class="detail-meta">
+      <span>📍 ${e.location}</span>
+      <span>⏱ ${e.dur}</span>
+      <span>🎒 ${e.ageGroup}</span>
+    </div>
+    <div class="detail-rating">
+      <span class="stars-ico" style="font-size:16px;">${stars(e.rating)}</span>
+      <span style="font-size:13px;font-weight:700;">${e.rating}</span>
+      <span style="font-size:13px;color:var(--g4);">· ${e.reviews.toLocaleString()} reviews</span>
+    </div>
+    <p class="detail-desc">${e.desc}</p>
+
+    <div class="detail-section">
+      <h2>What You'll Do</h2>
+      ${e.itin
+          .map(
+              (s, i) =>
+                  `<div class="itinerary-step"><span class="step-num">${
+                      i + 1
+                  }</span><span class="step-text">${s}</span></div>`,
+          )
+          .join("")}
+    </div>
+
+    <div class="edu-panel">
+      <h2>🎓 Education &amp; Curriculum</h2>
+      <div class="edu-grid">
+        <div>
+          <div class="edu-label">Learning Outcomes</div>
+          <ul class="outcome-list">
+            ${e.outcomes
+                .map(
+                    (o) =>
+                        `<li class="outcome-item"><span class="outcome-dot">✓</span>${o}</li>`,
+                )
+                .join("")}
+          </ul>
+        </div>
+        <div>
+          <div style="margin-bottom:14px;">
+            <div class="edu-label">Age Group</div>
+            <div class="edu-val" style="font-weight:700;">${e.ageGroup}</div>
+          </div>
+          <div style="margin-bottom:14px;">
+            <div class="edu-label">Group Size</div>
+            <div class="edu-val" style="font-weight:700;">${e.minG}–${
+                e.maxG
+            } participants</div>
+          </div>
+          <div>
+            <div class="edu-label">Curriculum Links</div>
+            <div class="edu-val" style="font-size:12px;color:var(--g7);">${
+                e.curriculum
+            }</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="detail-section">
+      <h2>Best Paired With</h2>
+      <div class="paired-grid">
+        ${paired
+            .map(
+                (p) => `
+          <div class="paired-card" onclick="openDetail(${p.id})">
+            <img class="paired-img" src="${p.img}" alt="${p.title}" loading="lazy"/>
+            <div>
+              <div class="paired-title">${p.title}</div>
+              <div class="paired-loc">${p.location} · ${p.dur}</div>
+              <div class="paired-price">From A$${p.price}/pp</div>
+            </div>
+          </div>`,
+            )
+            .join("")}
+      </div>
+    </div>`;
+
+                renderBookCard();
+            }
+
+            function renderBookCard() {
+                const e = currentExp;
+                const isSchool = bookType === "school";
+                const pprice = isSchool ? e.groupPrice : e.price;
+                const total = pprice * pax;
+
+                document.getElementById("detail-right").innerHTML = `
+    <div class="book-card">
+      <div class="book-from">From</div>
+      <div class="book-price">A$${e.price}<span>/person</span></div>
+      <div class="book-group-price">Groups from A$${e.groupPrice}/pp</div>
+
+      <div class="book-toggle">
+        <button class="book-tab ${
+            !isSchool ? "active" : ""
+        }" onclick="setBookType('individual')">👤 Individual</button>
+        <button class="book-tab ${
+            isSchool ? "active" : ""
+        }" onclick="setBookType('school')">🏫 School/Group</button>
+      </div>
+
+      ${
+          isSchool
+              ? `<div class="school-note">Min ${e.minG} · Max ${e.maxG} · Invoice billing available</div>`
+              : ""
+      }
+
+      <div class="book-label">Date</div>
+      <input class="book-date-input" type="date" value="${chosenDate}"
+        min="${new Date().toISOString().split("T")[0]}"
+        onchange="chosenDate=this.value;renderBookCard()"/>
+
+      <div class="book-label">Participants</div>
+      <div class="pax-row">
+        <button class="pax-btn" onclick="adjustPax(-1)">−</button>
+        <div class="pax-num">${pax}</div>
+        <button class="pax-btn" onclick="adjustPax(1)">+</button>
+      </div>
+
+      <div class="book-total-row">
+        <span>A$${pprice} × ${pax} person${pax > 1 ? "s" : ""}</span>
+        <span>A$${total}</span>
+      </div>
+      <div class="book-grand">
+        <span>Total</span>
+        <span>A$${total}</span>
+      </div>
+
+      <button class="btn btn-g full" onclick="doBook()">
+        ${isSchool ? "Request a Quote →" : "Book Now →"}
+      </button>
+      ${
+          isSchool
+              ? '<p class="school-next-note">We\'ll contact your school within 24 hours</p>'
+              : ""
+      }
+
+      <div class="book-trust">
+        <div class="trust-row"><span>✅</span><span>Free cancellation up to 48hrs before</span></div>
+        <div class="trust-row"><span>🛡️</span><span>Safety briefing included for all groups</span></div>
+        <div class="trust-row"><span>📞</span><span>Direct farmer contact after booking</span></div>
+      </div>
+    </div>`;
+            }
+
+            function setBookType(type) {
+                bookType = type;
+                pax = type === "school" ? currentExp.minG : 1;
+                renderBookCard();
+            }
+
+            function adjustPax(delta) {
+                const e = currentExp;
+                const minVal = bookType === "school" ? e.minG : 1;
+                pax = Math.max(minVal, Math.min(e.maxG, pax + delta));
+                renderBookCard();
+            }
+
+            function doBook() {
+                const e = currentExp;
+                const isSchool = bookType === "school";
+                const pprice = isSchool ? e.groupPrice : e.price;
+                const total = pprice * pax;
+                const ref =
+                    "AGM-" +
+                    Math.random().toString(36).slice(2, 8).toUpperCase();
+
+                document.getElementById("confirm-content").innerHTML = `
+    <div class="confirm-icon">${isSchool ? "🏫" : "🎉"}</div>
+    <h1 class="confirm-title">${
+        isSchool ? "Quote Request Sent!" : "You're Booked!"
+    }</h1>
+    <p class="confirm-sub">${
+        isSchool
+            ? "Our schools coordinator will contact you within 24 hours with a full itinerary, risk assessment, and group invoice."
+            : "Get ready for an incredible farm experience. A confirmation has been sent to your email."
+    }</p>
+
+    <div class="confirm-card">
+      <div class="confirm-exp">
+        <img class="confirm-exp-img" src="${e.img}" alt="${e.title}"/>
+        <div>
+          <div class="confirm-exp-title">${e.title}</div>
+          <div class="confirm-exp-loc">📍 ${e.location}</div>
+        </div>
+      </div>
+      <div class="confirm-row"><span>Booking Ref</span><strong>${ref}</strong></div>
+      <div class="confirm-row"><span>Date</span><strong>${
+          chosenDate || "To be confirmed"
+      }</strong></div>
+      <div class="confirm-row"><span>Participants</span><strong>${pax}</strong></div>
+      <div class="confirm-row"><span>Type</span><strong>${
+          isSchool ? "School/Group" : "Individual"
+      }</strong></div>
+      <div class="confirm-row total"><span>Total</span><span>A$${total}</span></div>
+    </div>
+
+    ${
+        isSchool
+            ? `
+    <div class="next-steps">
+      <h3>📋 What happens next?</h3>
+      <ul>
+        <li><span>1.</span>Schools coordinator calls within 24 hours</li>
+        <li><span>2.</span>Detailed itinerary &amp; risk assessment sent by email</li>
+        <li><span>3.</span>Confirm participant numbers and dietary requirements</li>
+        <li><span>4.</span>Receive school invoice for administration</li>
+      </ul>
+    </div>`
+            : ""
+    }
+
+    <button class="btn btn-g" onclick="showPage('home')">← Back to Experiences</button>`;
+
+                showPage("confirm");
+            }
+
+            function handleSearch() {
+                const q = document
+                    .getElementById("main-search")
+                    .value.toLowerCase();
+                const filtered = q
+                    ? EXPS.filter(
+                          (e) =>
+                              e.title.toLowerCase().includes(q) ||
+                              e.location.toLowerCase().includes(q) ||
+                              e.tags.some((t) => t.toLowerCase().includes(q)),
+                      )
+                    : EXPS;
+                document.getElementById("car-featured").innerHTML =
+                    filtered.length
+                        ? filtered.map(buildCard).join("")
+                        : '<p style="padding:20px;color:var(--g4);">No experiences found. Try a different search.</p>';
+                document.getElementById("car-school").innerHTML = filtered
+                    .filter((e) => e.tags.includes("School Friendly"))
+                    .map(buildCard)
+                    .join("");
+                window.scrollTo({
+                    top:
+                        document
+                            .getElementById("car-featured")
+                            .getBoundingClientRect().top +
+                        window.scrollY -
+                        120,
+                    behavior: "smooth",
+                });
+            }
+
+            /* ── INIT ── */
+            fillCarousels();
+            fillCatGrid();
+        </script>
+    </body>
+</html>
